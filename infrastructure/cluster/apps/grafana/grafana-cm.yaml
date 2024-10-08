@@ -1,0 +1,20 @@
+# grafana-datasource-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+data:
+  datasources.yaml: |
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      access: proxy  # or 'direct' if Grafana can directly access Prometheus
+      orgId: 1
+      url: http://prometheus-service.monitoring.svc.cluster.local:9090
+      basicAuth: false  # adjust based on Prometheus authentication settings
+      isDefault: true
+      jsonData:
+        httpMethod: GET
+
